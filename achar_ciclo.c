@@ -9,7 +9,7 @@ void libera_grafo(Grafo *g)
     }
     for (int i = 0; i < g->vertices; i++) {
         if (g->v != NULL) {
-            free(g->v[i].vizinhos);
+            free(g->v[i].vizinho);
         }
         if (g->mat != NULL) {
             free(g->mat[i]);
@@ -28,7 +28,7 @@ void imprime_grafo(Grafo *g)
     for (int i = 0; i < g->vertices; i++) {
         printf("%d:", i);
         for (int j = 0; j < g->v[i].qntsvizinhos; j++) {
-            printf(" %d", g->v[i].vizinhos[j]);
+            printf(" %d", g->v[i].vizinho[j]);
         }
         putchar('\n');
     }
