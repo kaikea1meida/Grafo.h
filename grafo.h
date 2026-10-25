@@ -1,0 +1,83 @@
+#ifndef GRAFO_H
+#define GRAFO_H
+
+#include <stddef.h>
+
+typedef struct vert
+{
+        int* vizinho;// vetor com os vizinhos que já checamos até agora e botamos la
+        int qntsvizinhos;
+        int grau;
+        int japassou;
+}Vertice;
+
+typedef struct graph 
+{
+    int** mat;// matriz de adjacência
+    int vertices;// quant de vertice
+    int arestas;// quant de aresta
+    Vertice* v;// vetor que tem os vertices do grafo.
+
+}Grafo;
+/* o que precisa ter
+
+função pra verificar se é fortemente cordal
+
+###função pra adicionar vertices a um grafo e definir as ligações que ele faz###
+
+funções pra fazer grafos como:
+Completos
+nulos
+ciclos
+
+função pra fazer união, join e conexão de grafos
+
+função pra citar os vertices e botar do lado quem ele faz conexão
+
+
+
+interfaçe visual pra isso*/
+Grafo* cria_grafo(int n);
+Grafo* altera_tamanho_grafo(Grafo* g, int Nnovo);
+void nulificar_grafo(Grafo* g);
+void completa_grafo(Grafo* g);
+void cria_ciclo(Grafo* g);
+void ligar_vertice(Grafo* g, int v1, int v2);
+void libera_grafo(Grafo* g);
+void imprime_grafo(Grafo* g);
+int eh_fortemente_cordal(Grafo* g);
+
+void atualiza_vizinhos(Grafo* g);
+#endif
+
+
+/*
+
+        { 0, 1, 1, 0, 1, 0, 1, 1}
+        { 1, 0, 1, 1, 0, 1, 0, 1}
+        { 1, 1, 0, 1, 1, 0, 1, 0}
+        { 0, 1, 1, 0, 1, 1, 0, 1}
+        { 1, 0, 1, 1, 0, 1, 1, 0}
+        { 0, 1, 0, 1, 1, 0, 1, 1}
+        { 1, 0, 1, 0, 1, 1, 0, 1}  
+        { 1, 1, 0, 1, 1, 1, 1, 0}
+
+
+4-sol      1  2  3  4  5  6  7  8
+        1{ 0, 1, 1, 1, 1, 0, 0, 1 } 
+        2{ 1, 0, 1, 1, 1, 1, 0, 0 }
+        3{ 1, 1, 0, 1, 0, 1, 1, 0 }
+        4{ 1, 1, 1, 0, 0, 0, 1, 1 }
+        5{ 1, 1, 0, 0, 0, 0, 0, 0 }
+        6{ 0, 1, 1, 0, 0, 0, 0, 0 }
+        7{ 0, 0, 1, 1, 0, 0, 0, 0 }
+        8{ 1, 0, 0, 1, 0, 0, 0, 0 }
+
+        { 0, 1, 0, 0, 0, 1 }
+        { 1, 0, 1, 0, 0, 0 }
+        { 0, 1, 0, 1, 0, 0 }
+        { 0, 0, 1, 0, 1, 0 }
+        { 0, 0, 0, 1, 0, 1 }
+        { 1, 0, 0, 0, 1, 0 }
+
+*/
