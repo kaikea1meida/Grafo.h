@@ -1,4 +1,5 @@
 #include "grafo.h"
+#include <stdlib.h>
 void libera_grafo(Grafo *G)
 {
     if (G == NULL)

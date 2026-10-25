@@ -2,23 +2,6 @@
 #include <stdlib.h>
 #include "grafo.h"
 
-void libera_grafo(Grafo *g)
-{
-    if (g == NULL) {
-        return;
-    }
-    for (int i = 0; i < g->vertices; i++) {
-        if (g->v != NULL) {
-            free(g->v[i].vizinho);
-        }
-        if (g->mat != NULL) {
-            free(g->mat[i]);
-        }
-    }
-    free(g->v);
-    free(g->mat);
-    free(g);
-}
 
 void imprime_grafo(Grafo *g)
 {

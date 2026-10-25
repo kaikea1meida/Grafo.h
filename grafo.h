@@ -46,8 +46,9 @@ void ligar_vertice(Grafo* g, int v1, int v2);
 void libera_grafo(Grafo* g);
 void imprime_grafo(Grafo* g);
 int eh_fortemente_cordal(Grafo* g);
-
-void atualiza_vizinhos(Grafo* g);
+int eh_simplicial(Grafo* g,int simplicial);
+void verifica_vizinhos(Grafo *G, int vertice);
+int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas);
 #endif
 
 

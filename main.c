@@ -17,13 +17,13 @@ int matriz[10][10] = {
 };
 
 Grafo* g=cria_grafo(10);
-g->mat=matriz;
 for(int i=0;i<10;i++){
     for(int j=0;j<0;j++){
     g->mat[i][j]=matriz[i][j];
 }
 }
-int cordal=eep(g);
+int cordal=eep(g,10,NULL,0,0);
+
 
 if(cordal){
     printf("o grafo eh cordal hahahahhaha");

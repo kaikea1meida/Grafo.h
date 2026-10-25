@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include"grafo.h"
+#include "grafo.h"
 
 Grafo* altera_tamanho_grafo(Grafo *g, int Nnovo)
 {
@@ -43,6 +43,8 @@ Grafo* altera_tamanho_grafo(Grafo *g, int Nnovo)
     }
     g->vertices = Nnovo;
     g->arestas = 0;
-    atualiza_vizinhos(g);
+    for(int i=antigo;i<Nnovo;i++){
+        verifica_vizinhos(g,i);
+    }
     return g;
 }

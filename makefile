@@ -1,34 +1,23 @@
 CC = gcc
-CFLAGS = -O2 -g -I.
-LIBS = 
+CFLAGS = -std=c99 -w
 
-OUT = /tmp/game
-DELETE = rm -f
-CLEAR = && clear
+SRC = $(wildcard *.c)
 
-# Nome da pasta atualizado sem espaços
-SRC = $(wildcard *.c) \
-    $(wildcard Kn_Cne_Nulos/*.c)
+ifeq ($(OS),Windows_NT)
+    EXEC = programa.exe
+    CLEAN_CMD = cmd /c "del /F /Q $(EXEC) 2>nul"
+else
+    EXEC = programa
+    CLEAN_CMD = rm -f $(EXEC)
+endif
 
-# Gera a lista de arquivos .o a partir do SRC
-OBJ = $(SRC:.c=.o)
+all: $(EXEC)
 
-all: $(OUT)
+$(EXEC): $(SRC)
+	$(CC) $(CFLAGS) -o $@ $^
 
-$(OUT): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-debug: $(OUT)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes $(OUT)
-
-run: $(OUT)
-	$(OUT)
-
-run-ext: $(OUT)
-	gnome-terminal -- $(OUT)
+run: all
+	./$(EXEC)
 
 clean:
-	$(DELETE) $(OUT) $(OBJ) $(CLEAR)
+	$(CLEAN_CMD)
