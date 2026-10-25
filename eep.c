@@ -18,30 +18,31 @@ int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas)
         return 1;// e retorna que é cordal
     }
 
-    int i=0,j=0;
+    int i=0;
     for(i=0;i<G->vertices;i++)// ve a linha toda
     {
         if(G->v[i].japassou==0)
         {
-            for(j=0;j<G->vertices;j++)// ve a linha toda
+            if(eh_simplicial(G,i))
+            {// aqui é a verificação de olhar se os vizinhos do vertice que é vizinho do simplicial tem a mesma vizinhança do simplicial - esse vizinho que está sendo verificado
+                G->v[i].japassou=1;
+                ordem[posicao]=i;
+                return eep(G, vertices_restante - 1, ordem, posicao + 1,0);
+            }
+            else
             {
-                if(G->mat[i][j]==1)// se o elemento da matriz for 1
+                falhas++;
+                if (falhas == (vertices_restante - 1)) 
                 {
-                    if (G->v[j].vizinho == NULL)
-                        verifica_vizinhos(G,j);// verifica o vertice vizinho dele ( a linha do mesmo numero da coluna que o vertice g tem conexão)
-                    
+                    return 0;
                 }
             }
-            if (G->v[i].vizinho == NULL)
-                verifica_vizinhos(G,i);
-
-            if(eh_simplicial(G,))// aqui é a verificação de olhar se os vizinhos do vertice que é vizinho do simplicial tem a mesma vizinhança do simplicial - esse vizinho que está sendo verificado
         }
     }
-    G->v[i].japassou=1;
-    ordem[posicao]=i;
-    return eep(G, vertices_restante - 1, ordem, posicao + 1,falhas);
+    return 0;
+        
 }
+    
 
     /* G é o ponteiro pro grafo.
     vertices_restantes é o tamanho/ ordemda matriz atual( do subgrafo atual) e me mostra quantos vertices ainda tenho que olhar
