@@ -80,5 +80,4 @@ int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas);
         { 0, 0, 1, 0, 1, 0 }
         { 0, 0, 0, 1, 0, 1 }
         { 1, 0, 0, 0, 1, 0 }
-
 */
