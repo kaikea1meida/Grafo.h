@@ -14,12 +14,29 @@ CFLAGS = -Wall -O2 -Wextra -g -I.
 # (Se um dia usar <math.h>, basta colocar -lm aqui)
 LIBS = 
 
-# 'OUT' é o nome e o caminho do executável final gerado
-OUT = /tmp/grafo_exe
+ifeq ($(OS),Windows_NT)
+    IS_WINDOWS := 1
+else ifneq ($(windir),)
+    IS_WINDOWS := 1
+endif
 
-# Comandos do sistema
-DELETE = rm -f
-CLEAR = && clear
+ifeq ($(IS_WINDOWS),1)
+    OUT = grafo_exe.exe
+    EXEC = .\$(OUT)
+    DELETE = if exist $(subst /,\,$(OUT)) del /f /q $(subst /,\,$(OUT))
+    RMDIR = if exist $(OBJDIR) rmdir /s /q $(OBJDIR)
+    MKDIR = if not exist "$(subst /,\,$(dir $@))" mkdir "$(subst /,\,$(dir $@))"
+    CLEAR =
+    RUN_EXT = start cmd /k $(OUT)
+else
+    OUT = ./grafo_exe
+    EXEC = $(OUT)
+    DELETE = rm -f $(OUT)
+    RMDIR = rm -rf $(OBJDIR)
+    MKDIR = mkdir -p $(dir $@)
+    CLEAR = && clear
+    RUN_EXT = gnome-terminal -- $(OUT)
+endif
 
 # ------------------------------------------------------------------------------------
 # PASTAS E FICHEIROS
@@ -49,7 +66,7 @@ $(OUT): $(OBJ)
 # Regra para compilar cada .c num .o e guardar dentro da pasta obj/
 # O @mkdir -p cria as subpastas automaticamente antes de compilar
 $(OBJDIR)/%.o: %.c
-	@mkdir -p $(dir $@)
+	@$(MKDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # ------------------------------------------------------------------------------------
@@ -62,14 +79,15 @@ debug: $(OUT)
 
 # Corre o programa diretamente no terminal integrado
 run: $(OUT)
-	$(OUT)
+	$(EXEC)
+	-@$(DELETE)
 
 # Abre uma nova janela preta do terminal do Ubuntu só com o programa
 run-ext: $(OUT)
-	gnome-terminal -- $(OUT)
+	$(RUN_EXT)
 
 # ALVO DE LIMPEZA
 # Apaga a pasta 'obj' inteira (com o -r) e o executável final, limpando o projeto
 clean:
-	$(DELETE) -r $(OBJDIR)
-	$(DELETE) $(OUT) $(CLEAR)
+	$(RMDIR)
+	$(DELETE) $(CLEAR)
