@@ -1,15 +1,27 @@
-#include "../../grafos/grafo.h"
+#include "../../Grafo.h/grafo.h"
 
-void cria_ciclo(Grafo *g)
+Grafo* cria_ciclo(int n)
 {
-    if (g == NULL) {
-        return;
-    }
-    nulificar_grafo(g);
-    if (g->vertices < 2) {
-        return;
-    }
-    for (int i = 0; i < g->vertices; i++) {
-        ligar_vertice(g, i, (i + 1) % g->vertices);
+    {
+        Grafo* g=criar_grafo(n);
+        for(int i = 0;i<n;i++)
+        {
+            for(int j = 0; j<n; j++)
+            {
+                if(i==j||((i==0||j==0)&&(i==n||j==n)));
+                g->mat[i][j]=1;
+            }
+        }
+        g->vertices=n;
+        g->arestas=n*(n-1);
+        for(int i = 0;i<n;i++)
+        {
+            g->v[i].grau=n-1;
+            g->v[i].qntsvizinhos=n-1;
+            for(int j=0;j<n;j++)
+            {
+                g->v[i].vizinho[j]=n-(n-j);
+            }
+        }
     }
 }

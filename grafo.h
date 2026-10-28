@@ -19,6 +19,7 @@ typedef struct graph
     Vertice* v;// vetor que tem os vertices do grafo.
 
 }Grafo;
+
 /* o que precisa ter
 
 função pra verificar se é fortemente cordal

@@ -1,4 +1,4 @@
-#include "../../grafos/grafo.h"
+#include "../../Grafo.h/grafo.h"
 
 void nulificar_grafo(Grafo *g)
 {

@@ -1,10 +1,10 @@
 #include "grafo.h"
 #include <stdio.h>
-
+#define ORDEM 10
 int main()
 {
-    int ordem[10];
-    int matriz[10][10] = 
+    int ordem[ORDEM];
+    int matriz[ORDEM][ORDEM] = 
     {
         /*     0  1  2  3  4  5  6  7  8  9 */
         /*0*/ {0, 1, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -19,22 +19,26 @@ int main()
         /*9*/ {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}
     };
 
-    Grafo* g = cria_grafo(10);
+    Grafo* g = cria_grafo(ORDEM);
     
-    // Corrigido j<0 para j<10
-    for(int i = 0; i < 10; i++)
+    // Corrigido j<0 para j<ORDEM
+    for(int i = 0; i < ORDEM; i++)
     {
-        for(int j = 0; j < 10; j++)
+        for(int j = 0; j < ORDEM; j++)
         {
             g->mat[i][j] = matriz[i][j];
         }
     }
     
-    int cordal = eep(g, 10, ordem, 0, 0);
+    int cordal = eep(g, ORDEM, ordem, 0, 0);
 
     if(cordal)
     {
         printf("o grafo eh cordal hahahahhaha\n");
+        for(int i=0;i<ORDEM;i++)
+        {
+            printf("%d",ordem[i]);
+        }
     }
     else 
     {

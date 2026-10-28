@@ -3,35 +3,22 @@
 
 Grafo* cria_grafo(int n)
 {
-    if (n < 0) 
+    if (n == 0) // n to aceitando "grafo sem vertice"
     {
         return NULL;
     }
 
-    Grafo *g = (Grafo*)calloc(1, sizeof(*g));
+    Grafo *g = (Grafo*)calloc(1, sizeof(*g));// aloca um esoaço pro grafo que voce quer gerar
     if (g == NULL) 
     {
-        return NULL;
+        return NULL;// se n gerou por algum motivo fala q edu ruim, retornando NULL
     }
 
-    g->vertices = n;
-    g->arestas = 0;
+    g->vertices = n;// os vertices são o tamanho
+    g->arestas = 0;//o grafo é nulo, adiciona aresta depois com a função pra isso
 
-    if (n == 0)
-    {
-        g->mat = NULL;
-        g->v = NULL;
-        return g;
-    }
-
-    g->mat = calloc(n, sizeof(*g->mat));
+    g->mat = calloc(n, sizeof(*g->mat));// faz o calloc da matriz e do struct vertice na memória
     g->v = calloc(n, sizeof(*g->v));
-
-    if (g->mat == NULL || g->v == NULL) 
-    {
-        libera_grafo(g);
-        return NULL;
-    }
 
     for (int i = 0; i < n; i++) 
     {

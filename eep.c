@@ -2,10 +2,8 @@
 
 int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas) 
 {
-    if (G == NULL||falhas==(vertices_restante-1)) 
-    { 
-        return 0; 
-    }
+    if(G == NULL||falhas==(vertices_restante-1)) { return 0; }
+
     if (vertices_restante <= 3)//se tiver menos de 4 vertices
     {
         for (int i = 0; i < G->vertices; i++)// passa pelos 3 vertices ou menos e bota eles no eep
