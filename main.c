@@ -19,7 +19,7 @@ int main()
         /*9*/ {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}
     };
 
-    Grafo* g = cria_grafo(ORDEM);
+    Grafo* g = criar_grafo(ORDEM);
     
     // Corrigido j<0 para j<ORDEM
     for(int i = 0; i < ORDEM; i++)

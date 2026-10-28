@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "grafo.h"
 
-Grafo* cria_grafo(int n)
+Grafo* criar_grafo(int n)
 {
     if (n == 0) // n to aceitando "grafo sem vertice"
     {

@@ -1,5 +1,5 @@
 #include "../../Grafo.h/grafo.h"
-Grafo* criagrafo_completo(int n)
+Grafo* criar_grafo_completo(int n)
 {
 
     if(n<0)

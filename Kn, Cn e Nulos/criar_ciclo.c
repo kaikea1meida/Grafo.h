@@ -1,6 +1,6 @@
 #include "../../Grafo.h/grafo.h"
 
-Grafo* cria_ciclo(int n)
+Grafo* criar_ciclo(int n)
 {
     if(n<3)
     {

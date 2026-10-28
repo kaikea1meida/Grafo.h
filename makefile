@@ -6,88 +6,102 @@
 CC = gcc
 
 # 'CFLAGS' guarda as opções de compilação
-# -I. diz ao compilador para procurar o grafo.h na pasta atual
+# -Wall e -Wextra ativam avisos; -O2 otimiza; -g gera símbolos de depuração.
+# -I. procura os headers na pasta atual.
 CFLAGS = -Wall -O2 -Wextra -g -I.
 
-# 'LIBS' para bibliotecas externas. 
-# Deixei vazio porque grafos normalmente não precisa do ncurses. 
-# (Se um dia usar <math.h>, basta colocar -lm aqui)
-LIBS = 
+# 'LIBS' define bibliotecas externas necessárias na etapa de linkedição.
+LIBS =
 
+# //ADICIONADO: identifica Windows pelo ambiente do Make ou pela variável windir.
+# Isso permite escolher nomes de executável e comandos compatíveis com cada sistema.
 ifeq ($(OS),Windows_NT)
     IS_WINDOWS := 1
 else ifneq ($(windir),)
     IS_WINDOWS := 1
 endif
 
+# //ADICIONADO: comandos de diretório, limpeza e execução variam entre Windows e Linux.
 ifeq ($(IS_WINDOWS),1)
     OUT = grafo_exe.exe
-    EXEC = .\$(OUT)
-    DELETE = if exist $(subst /,\,$(OUT)) del /f /q $(subst /,\,$(OUT))
-    RMDIR = if exist $(OBJDIR) rmdir /s /q $(OBJDIR)
+    # //ADICIONADO: objetos separados evitam reutilizar .o de uma compilação Linux.
+    OBJDIR = obj/windows
+    EXEC = ./$(OUT)
+    DELETE = if exist $(OUT) del /f /q $(OUT)
+    RMDIR = if exist obj rmdir /s /q obj
     MKDIR = if not exist "$(subst /,\,$(dir $@))" mkdir "$(subst /,\,$(dir $@))"
     CLEAR =
-    RUN_EXT = start cmd /k $(OUT)
+    RUN_EXT = start "" "$(OUT)"
 else
     OUT = ./grafo_exe
+    # //ADICIONADO: objetos separados evitam reutilizar .o de uma compilação Windows.
+    OBJDIR = obj/linux
     EXEC = $(OUT)
     DELETE = rm -f $(OUT)
-    RMDIR = rm -rf $(OBJDIR)
+    RMDIR = rm -rf obj
     MKDIR = mkdir -p $(dir $@)
     CLEAR = && clear
     RUN_EXT = gnome-terminal -- $(OUT)
 endif
 
 # ------------------------------------------------------------------------------------
-# PASTAS E FICHEIROS
+# FONTES E ARQUIVOS OBJETO
 # ------------------------------------------------------------------------------------
 
-# SRC pega todos os ficheiros .c da pasta principal e da subpasta dos nulos/completos
-SRC = $(wildcard *.c) \
-      $(wildcard Kn_Cne_Nulos/*.c)
+# Compila os .c da pasta atual.
+SRC = $(wildcard *.c)
 
-# 'OBJDIR' é a pasta onde vamos guardar todos os ficheiros .o compilados
-OBJDIR = obj
+# 'OBJDIR' guarda os .o em uma pasta própria para o sistema operacional atual.
 
-# Transformação automática: converte os .c do SRC para .o e redireciona para a pasta obj/
-OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(SRC))
+# //ADICIONADO: inclui os objetos das fontes dentro de "Kn, Cn e Nulos".
+# Os nomes dos objetos não têm espaços para simplificar a compilação no Windows.
+OBJ = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC)) \
+      $(OBJDIR)/Kn_Cn_e_Nulos_criar_ciclo.o \
+      $(OBJDIR)/Kn_Cn_e_Nulos_criar_grafo_completo.o \
+      $(OBJDIR)/Kn_Cn_e_Nulos_nulificar_grafo.o
 
 # ====================================================================================
 # REGRAS DE COMPILAÇÃO
 # ====================================================================================
 
-# Alvo principal
+# Alvo principal: 'make' compila o executável.
 all: $(OUT)
 
-# Regra para gerar o executável final juntando todos os .o
+# Liga todos os objetos para gerar o executável.
 $(OUT): $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
 
-# Regra para compilar cada .c num .o e guardar dentro da pasta obj/
-# O @mkdir -p cria as subpastas automaticamente antes de compilar
+# Compila fontes da pasta atual para obj/.
 $(OBJDIR)/%.o: %.c
 	@$(MKDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c "$<" -o "$@"
 
-# ------------------------------------------------------------------------------------
-# COMANDOS EXTRAS (UTILITIES)
-# ------------------------------------------------------------------------------------
+# //ADICIONADO: regra especial para compilar fontes cujo caminho contém espaços.
+$(OBJDIR)/Kn_Cn_e_Nulos_%.o: Kn,\ Cn\ e\ Nulos/%.c
+	@$(MKDIR)
+	$(CC) $(CFLAGS) -c "$<" -o "$@"
 
-# Corre o Valgrind para procurar fugas de memória (memory leaks)
+# //ADICIONADO: no Linux, debug usa Valgrind; no Windows, usa GDB, que é a opção
+# de depuração compatível com as ferramentas GCC normalmente usadas nesse sistema.
+ifeq ($(IS_WINDOWS),1)
+debug: $(OUT)
+	gdb $(OUT)
+else
 debug: $(OUT)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes $(OUT)
+endif
 
-# Corre o programa diretamente no terminal integrado
+# Executa o programa no terminal atual.
 run: $(OUT)
 	$(EXEC)
-	-@$(DELETE)
 
-# Abre uma nova janela preta do terminal do Ubuntu só com o programa
+# Abre o programa em uma nova janela de terminal.
 run-ext: $(OUT)
 	$(RUN_EXT)
 
-# ALVO DE LIMPEZA
-# Apaga a pasta 'obj' inteira (com o -r) e o executável final, limpando o projeto
+# Remove os arquivos de compilação e o executável.
 clean:
 	$(RMDIR)
 	$(DELETE) $(CLEAR)
+
+.PHONY: all debug run run-ext clean

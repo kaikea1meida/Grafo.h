@@ -2,6 +2,8 @@
 #define GRAFO_H
 
 #include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 typedef struct vert
 {
@@ -38,12 +40,12 @@ função pra citar os vertices e botar do lado quem ele faz conexão
 
 
 interfaçe visual pra isso*/
-Grafo* cria_grafo(int n);
+Grafo* criar_grafo(int n);
 Grafo* altera_tamanho_grafo(Grafo* g, int Nnovo);
-void nulificar_grafo(Grafo* g);
-void completa_grafo(Grafo* g);
-void cria_ciclo(Grafo* g);
-void ligar_vertice(Grafo* g, int v1, int v2);
+Grafo* nulificar_grafo(Grafo* g);
+Grafo* criar_grafo_completo(int n);
+Grafo* criar_ciclo(int n);
+Grafo* ligar_vertice(Grafo* g, int v1, int v2);
 void libera_grafo(Grafo* g);
 void imprime_grafo(Grafo* g);
 int eh_fortemente_cordal(Grafo* g);
