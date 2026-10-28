@@ -52,6 +52,7 @@ int eh_fortemente_cordal(Grafo* g);
 int eh_simplicial(Grafo* g,int simplicial);
 void verifica_vizinhos(Grafo *G, int vertice);
 int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas);
+void printa_grafo(Grafo* g);
 #endif
 
 
