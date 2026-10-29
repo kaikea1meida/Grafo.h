@@ -51,6 +51,7 @@ void libera_grafo(Grafo* g);
 void imprime_grafo(Grafo* g);
 int eh_fortemente_cordal(Grafo* g);
 int eh_simplicial(Grafo* g,int simplicial);
+int eh_simples(Grafo* G,int simples);
 void verifica_vizinhos(Grafo *G, int vertice);
 int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas);
 void copiar_matriz(Grafo* g,int matriz[g->vertices][g->vertices]);
@@ -58,6 +59,7 @@ void printar_resultado(Grafo* g);
 int eh_simetrica(int ordem, int mat[ordem][ordem]);
 void simetrizar_matriz(int ordem, int mat[ordem][ordem]);
 void printa_grafo(Grafo* g);
+void nao_passou(Grafo* g);
 int main2(void);
 #endif
 
