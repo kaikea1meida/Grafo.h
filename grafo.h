@@ -15,10 +15,11 @@ typedef struct vert
 
 typedef struct graph 
 {
-    int** mat;// matriz de adjacência
-    int vertices;// quant de vertice
-    int arestas;// quant de aresta
-    Vertice* v;// vetor que tem os vertices do grafo.
+        char nome[50];
+        int** mat;// matriz de adjacência
+        int vertices;// quant de vertice
+        int arestas;// quant de aresta
+        Vertice* v;// vetor que tem os vertices do grafo.
 
 }Grafo;
 
@@ -52,7 +53,12 @@ int eh_fortemente_cordal(Grafo* g);
 int eh_simplicial(Grafo* g,int simplicial);
 void verifica_vizinhos(Grafo *G, int vertice);
 int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas);
+void copiar_matriz(Grafo* g,int matriz[g->vertices][g->vertices]);
+void printar_resultado(Grafo* g);
+int eh_simetrica(int ordem, int mat[ordem][ordem]);
+void simetrizar_matriz(int ordem, int mat[ordem][ordem]);
 void printa_grafo(Grafo* g);
+int main2(void);
 #endif
 
 

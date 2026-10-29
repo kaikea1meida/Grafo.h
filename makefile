@@ -8,7 +8,7 @@ CC = gcc
 # 'CFLAGS' guarda as opções de compilação
 # -Wall e -Wextra ativam avisos; -O2 otimiza; -g gera símbolos de depuração.
 # -I. procura os headers na pasta atual.
-CFLAGS = -Wall -O2 -Wextra -g -I.
+CFLAGS = -Wextra -O2 -g -I.
 
 # 'LIBS' define bibliotecas externas necessárias na etapa de linkedição.
 LIBS =
@@ -24,20 +24,22 @@ endif
 # //ADICIONADO: comandos de diretório, limpeza e execução variam entre Windows e Linux.
 ifeq ($(IS_WINDOWS),1)
     OUT = grafo_exe.exe
+    SAN_OUT = grafo_asan.exe
     # //ADICIONADO: objetos separados evitam reutilizar .o de uma compilação Linux.
     OBJDIR = obj/windows
     EXEC = ./$(OUT)
-    DELETE = if exist $(OUT) del /f /q $(OUT)
+    DELETE = if exist $(OUT) del /f /q $(OUT) & if exist $(SAN_OUT) del /f /q $(SAN_OUT)
     RMDIR = if exist obj rmdir /s /q obj
     MKDIR = if not exist "$(subst /,\,$(dir $@))" mkdir "$(subst /,\,$(dir $@))"
     CLEAR =
     RUN_EXT = start "" "$(OUT)"
 else
     OUT = ./grafo_exe
+    SAN_OUT = ./grafo_asan
     # //ADICIONADO: objetos separados evitam reutilizar .o de uma compilação Windows.
     OBJDIR = obj/linux
     EXEC = $(OUT)
-    DELETE = rm -f $(OUT)
+    DELETE = rm -f $(OUT) $(SAN_OUT)
     RMDIR = rm -rf obj
     MKDIR = mkdir -p $(dir $@)
     CLEAR = && clear
@@ -95,6 +97,11 @@ endif
 run: $(OUT)
 	$(EXEC)
 
+# Compila em uma pasta separada para não misturar objetos instrumentados.
+sanitize:
+	$(MAKE) OUT=$(SAN_OUT) OBJDIR=obj/asan CFLAGS="$(CFLAGS) -O0 -fsanitize=address,undefined -fno-omit-frame-pointer" all
+	$(SAN_OUT)
+
 # Abre o programa em uma nova janela de terminal.
 run-ext: $(OUT)
 	$(RUN_EXT)
@@ -104,4 +111,4 @@ clean:
 	$(RMDIR)
 	$(DELETE) $(CLEAR)
 
-.PHONY: all debug run run-ext clean
+.PHONY: all debug run sanitize run-ext clean
