@@ -16,8 +16,8 @@ int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas)
         return 1;// e retorna que é cordal
     }
 
-    int i=0;
-    for(i=0;i<G->vertices;i++)// ve a linha toda
+    
+    for(int i=0;i<G->vertices;i++)// ve a linha toda
     {
         if(G->v[i].japassou==0)
         {

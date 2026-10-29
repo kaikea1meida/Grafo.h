@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include"grafo.h"
+#include "grafo.h"
 
 Grafo* ligar_vertice(Grafo *g, int v1, int v2)
 {

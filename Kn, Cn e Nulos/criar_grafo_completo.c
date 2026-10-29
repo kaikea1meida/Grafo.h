@@ -1,4 +1,4 @@
-#include "../../Grafo.h/grafo.h"
+#include "../grafo.h"
 Grafo* criar_grafo_completo(int n)
 {
 
@@ -8,7 +8,7 @@ Grafo* criar_grafo_completo(int n)
     }
     if(n==0)
     {
-            Grafo* g=criar_grafo(n);
+        Grafo* g=criar_grafo(n);
         if(g==NULL)
         {
             return NULL;

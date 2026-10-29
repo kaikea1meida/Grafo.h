@@ -1,4 +1,4 @@
-#include "../../Grafo.h/grafo.h"
+#include "../grafo.h"
 
 Grafo* criar_ciclo(int n)
 {

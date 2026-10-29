@@ -5,7 +5,7 @@ int eh_simples(Grafo* G, int simples)
 
     // pra cada vizinho do suposto simples, tem que ver se esse vizinho contem 
     // a vizinhança dos outros vizinhos ou tem a vizinhança contida por outros vizinhos
-
+    int res=0;
     
     if (G == NULL || G->v[simples].japassou == 1) 
     {
@@ -20,6 +20,9 @@ int eh_simples(Grafo* G, int simples)
             {//verifica se o simples conecta com i e j
                 if(G->mat[i][j]==0)
                 {//verifica se i e j tem conexao(se nao tem, entao ja nao eh simples)
+                    return 0;
+                }
+                if(!(contem_vizinhanca(G,i,j)||contem_vizinhanca(G,j,i))){
                     return 0;
                 }
             }
