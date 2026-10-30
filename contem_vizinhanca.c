@@ -5,7 +5,7 @@ int contem_vizinhanca(Grafo* g,int v1, int v2)
     //verificar se v1 esta contido em v2!!!!
     int contem=0;
     if(g->v[v1].qntsvizinhos>g->v[v2].qntsvizinhos)
-        return 0;
+        return 0;// vcs sabem se a gente ta atualizando certo os vizinhos? precisa conferir
     for(int i=0;i<g->v[v1].qntsvizinhos;i++)
     {
         for(int j=0;j<g->v[v2].qntsvizinhos;j++)

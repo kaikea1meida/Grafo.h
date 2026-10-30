@@ -63,6 +63,7 @@ void printa_grafo(Grafo* g);
 void nao_passou(Grafo* g);
 int main2(void);
 int contem_vizinhanca(Grafo* g,int v1, int v2);
+int eh_vizinhanca_aninhada(Grafo* g,int v1, int v2);
 #endif
 
 

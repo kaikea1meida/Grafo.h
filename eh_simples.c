@@ -22,13 +22,22 @@ int eh_simples(Grafo* G, int simples)
                 {//verifica se i e j tem conexao(se nao tem, entao ja nao eh simples)
                     return 0;
                 }
-                if(!(contem_vizinhanca(G,i,j)||contem_vizinhanca(G,j,i))){
+                if(!(eh_vizinhanca_aninhada(G,i,j)||eh_vizinhanca_aninhada(G,j,i))){
                     return 0;
                 }
             }
-
         }
     }   
     return 1;//retorna 1 caso ele seja simples(os vizinhos se veem)
 
 }
+
+/*
+0 1 1 1 0 1
+1 0 1 1 1 0
+1 1 0 0 1 1
+1 1 0 0 0 0
+0 1 1 0 0 0 
+1 0 1 0 0 0
+
+*/
