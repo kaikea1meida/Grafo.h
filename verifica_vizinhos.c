@@ -11,8 +11,8 @@ void verifica_vizinhos(Grafo *G, int vertice)
 
     for (j = 0; j < G->vertices; j++)
     {
-        if (G->mat[i][j] && G->v[j].japassou == 0)// se eu já n eliminei ele no eep e se ele
-        {// não é o simplicial que eu to olhando agora
+        if(G->mat[i][j] && G->v[j].japassou == 0)// se eu já n eliminei ele no eep e se ele
+        {   // não é o simplicial que eu to olhando agora
             int* temp = (int*)realloc(G->v[i].vizinho,(k+1) * sizeof(int));// tem q ser um temp
             // pq se não, se n der pra fazer o realloc ele faz o ponteiro que recebe ele receber NULL e ai a
             // gente perde o ponteiro pra memória original, oq da vazamento de memória, no inicio eu n entendi
