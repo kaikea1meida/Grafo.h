@@ -1,6 +1,6 @@
 #include "grafo.h"
     
-void printar_resultado(Grafo*g)
+void printar_resultado(Grafo* g)
     {
         int ordem[g->vertices];
         if(g==NULL||g->mat==NULL||g->nome==NULL||ordem==NULL)
@@ -16,8 +16,7 @@ void printar_resultado(Grafo*g)
             }
             printf("\n");
         }
-
-        if(eepf(g,g->vertices,ordem,0,0))
+        if(eh_fortemente_cordal(g))
         {
             printf("o grafo %s eh fortemente cordal!!\n a sua ordem de eliminacao perfeita forte eh:\n\n",g->nome);
             for(int j = 0; j<g->vertices; j++)
