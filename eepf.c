@@ -13,6 +13,11 @@ int eepf(Grafo *G, int vertices_restante, int* ordem, int posicao, int falhas)
                 ordem[posicao++] = i; 
             } 
         } 
+        G->eepf=(int*)calloc(posicao,sizeof(int));
+        for(int i=0;i<posicao;i++)
+        {
+            G->oepf[i]=ordem[i];
+        }
         return 1; // e retorna que é cordal
     }
 

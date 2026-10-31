@@ -6,7 +6,6 @@ int eh_simples(Grafo* G, int simples)
     // pra cada vizinho do suposto simples, tem que ver se esse vizinho contem 
     // a vizinhança dos outros vizinhos ou tem a vizinhança contida por outros vizinhos
     int res=0;
-    
     if (G == NULL || G->v[simples].japassou == 1) 
     {
         return 0; 
@@ -14,7 +13,7 @@ int eh_simples(Grafo* G, int simples)
     
     for(int i=0;i<G->vertices;i++)
     {
-        for(int j=0;j<i;j++)
+        for(int j=i+1;j<G->vertices;j++)
         {
             if(G->mat[simples][j] && G->mat[i][simples]&&G->v[i].japassou==0&&G->v[j].japassou==0)
             {//verifica se o simples conecta com i e j
@@ -29,7 +28,6 @@ int eh_simples(Grafo* G, int simples)
         }
     }   
     return 1;//retorna 1 caso ele seja simples(os vizinhos se veem)
-
 }
 
 /*

@@ -28,7 +28,7 @@ void printar_resultado(Grafo*g)
         }
         else if(eep(g,g->vertices,ordem,0,0))
         {
-            printf("o grafo %s nao eh fortemente cordal, mas eh cordal e a sua ordem de eliminacoa perfeita eh:\n\n",g->nome);
+            printf("o grafo %s nao eh fortemente cordal, mas eh cordal e a sua ordem de eliminacao perfeita eh:\n\n",g->nome);
             for(int j = 0; j<g->vertices; j++)
             {
                 printf("%d ",(ordem[j]+1));

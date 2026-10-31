@@ -2,6 +2,8 @@
 int contem_vizinhanca(Grafo* g,int v1, int v2)
 {
 
+    verifica_vizinhos(g,v1);
+    verifica_vizinhos(g,v2);
     //verificar se v1 esta contido em v2!!!!
     int contem=0;
     if(g->v[v1].qntsvizinhos>g->v[v2].qntsvizinhos)
@@ -10,11 +12,11 @@ int contem_vizinhanca(Grafo* g,int v1, int v2)
     {
         for(int j=0;j<g->v[v2].qntsvizinhos;j++)
         {
-            if(g->v[v2].vizinho[j]==g->v[v1].vizinho[i]){
+            if(g->v[v2].vizinho[j]==g->v[v1].vizinho[i])
+            {
                 contem++;
             }
-        }  
-
+        }
     }
     if(contem==g->v[v1].qntsvizinhos)
         return 1;

@@ -11,7 +11,7 @@ int eh_simplicial(Grafo* G, int simplicial)
     
     for(int i=0;i<G->vertices;i++)
     {
-        for(int j=0;j<i;j++)
+        for(int j=i+1;j<G->vertices;j++)
         {
             if(G->mat[simplicial][j] && G->mat[i][simplicial]&&G->v[i].japassou==0&&G->v[j].japassou==0)
             {//verifica se o simplicial conecta com i e j

@@ -6,8 +6,8 @@ int eh_vizinhanca_aninhada(Grafo* g,int v1, int v2)
         return 1;
     }
     //verificar se v1 contem a vizinhança de v2
-    int contem=0,excedente=0;
-    // se, pra todo vertice j que ainda não passou, de 0 até o maximo de vertices, j não for v1 nem v2 (soma) e, se v2 é vizinho de j, então v1 também é (subtrai), a vizinhança é aninhada, se o excedente de vizinhos for 0.
+    int excedente=0;
+    // se, pra todo vertice j que ainda não passou, de 0 até o maximo de vertices, j não nem for v1 nem v2 (soma) e, se v2 é vizinho de j, então v1 também é (subtrai), a vizinhança é aninhada, se o excedente de vizinhos for 0.
     for(int j=0;j<g->vertices;j++)// pra todo j referente a 0 até ao máximo de vertices
     {
         if(j!=v1&&j!=v2&&g->v[j].japassou==0)//se ele não é v1, nem v2 e não passou
@@ -23,7 +23,7 @@ int eh_vizinhanca_aninhada(Grafo* g,int v1, int v2)
             if((g->mat[v2][j]&&g->mat[v1][j])) // se for vizinho dos 2 então tira
             {
                 excedente--;
-            }*/
+        }*/
         }
     }
     if(excedente==0)

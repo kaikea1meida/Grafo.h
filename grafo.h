@@ -20,7 +20,8 @@ typedef struct graph
         int vertices;// quant de vertice
         int arestas;// quant de aresta
         Vertice* v;// vetor que tem os vertices do grafo.
-
+        int* oep;
+        int* oepf;
 }Grafo;
 
 /* o que precisa ter
@@ -64,6 +65,8 @@ void nao_passou(Grafo* g);
 int main2(void);
 int contem_vizinhanca(Grafo* g,int v1, int v2);
 int eh_vizinhanca_aninhada(Grafo* g,int v1, int v2);
+void simetrizar_matriz_transposto(int ordem, int mat[ordem][ordem]);
+Grafo* monta_bipartido_vclique(Grafo* G);
 #endif
 
 
