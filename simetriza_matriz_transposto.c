@@ -1,4 +1,4 @@
-void simetrizar_matriz_transposto(int ordem, int mat[ordem][ordem])
+void simetrizar_matriz_transposto(int ordem, int **mat)
 {
     for(int i=0;i<ordem;i++)
     {

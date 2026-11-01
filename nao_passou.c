@@ -5,6 +5,6 @@ void nao_passou(Grafo* g)
  //  também algumas outras funções que serao adicionadas.
     for(int i=0;i<g->vertices;i++)
     {
-        g->v->japassou=0;
+        g->v[i].japassou=0;
     }
 }

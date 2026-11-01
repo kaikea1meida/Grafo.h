@@ -68,7 +68,7 @@ void nao_passou(Grafo* g);
 int main2(void);
 int contem_vizinhanca(Grafo* g,int v1, int v2);
 int eh_vizinhanca_aninhada(Grafo* g,int v1, int v2);
-void simetrizar_matriz_transposto(int ordem, int mat[ordem][ordem]);
+void simetrizar_matriz_transposto(int ordem, int **mat);
 Grafo* monta_bipartido_vclique(Grafo* G);
 #endif
 

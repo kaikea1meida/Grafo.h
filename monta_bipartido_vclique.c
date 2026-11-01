@@ -25,4 +25,5 @@ Grafo* monta_bipartido_vclique(Grafo* G)
             // simetriza a matriz.
         // se não
             // vai pro próximo vertice
+        return B;
 }

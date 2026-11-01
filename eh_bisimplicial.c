@@ -40,6 +40,11 @@ int eh_bisimplicial(Grafo* G, int x,int y)
     // pra esses 2 fors de cima, voce bota os vizinhos deles num vetor ( do x é só ver os vizinhos dele mesmo e do y é)
 
     Grafo *temp=criar_grafo(qtdvizinhos);
+    if (temp == NULL)
+    {
+        return 0;
+    }
+
     for(int i=0;i<qtdvizinhos;i++)
     {
         for(int j=i+1;j<qtdvizinhos;j++)// pro triangulo superior todo

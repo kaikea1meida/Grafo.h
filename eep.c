@@ -13,7 +13,11 @@ int eep(Grafo *G,int vertices_restante, int* ordem, int posicao,int falhas)
                         ordem[posicao++] = i; 
                     } 
             } 
-        G->oep=(int*) calloc(posicao,sizeof(int));
+        G->oep = calloc((size_t)G->vertices, sizeof(*G->oep));
+        if (G->oep == NULL)
+        {
+            return 0;
+        }
         if(G == NULL||falhas==(vertices_restante-1)) 
         {exit(1);}
         for(int i=0;i<G->vertices;i++)

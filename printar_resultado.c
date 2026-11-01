@@ -16,7 +16,8 @@ void printar_resultado(Grafo* g)
             }
             printf("\n");
         }
-        if(eh_fortemente_cordal(g))
+        int eh_cordal = eep(g,g->vertices,ordem,0,0); // trocado da linha 28
+        if(eh_cordal && eh_fortemente_cordal(g)) // trocado da linha 19
         {
             printf("o grafo %s eh fortemente cordal!!\n a sua ordem de eliminacao perfeita forte eh:\n\n",g->nome);
             for(int j = 0; j<g->vertices; j++)
@@ -25,7 +26,7 @@ void printar_resultado(Grafo* g)
             }
             printf("\n");
         }
-        else if(eep(g,g->vertices,ordem,0,0))
+        else if(eh_cordal) // trocado da linha 28
         {
             printf("o grafo %s nao eh fortemente cordal, mas eh cordal e a sua ordem de eliminacao perfeita eh:\n\n",g->nome);
             for(int j = 0; j<g->vertices; j++)
